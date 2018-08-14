@@ -21,6 +21,9 @@
 			</v-list>
 		</v-navigation-drawer>
 		<v-toolbar color="indigo" dark fixed app>
+			<v-btn flat fab small v-if="currentRoute" @click="$router.go(-1)">
+				<v-icon dark>keyboard_arrow_left</v-icon>
+			</v-btn>
 			<v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-sm-and-up"></v-toolbar-side-icon>
 			<v-toolbar-title>Phonebook app</v-toolbar-title>
 			<v-spacer></v-spacer>
@@ -51,6 +54,9 @@
 	computed: {
   		isUserLogged(){
 		  	return this.$store.getters.user
+		},
+	  	currentRoute(){
+  		  return this.$route.name === 'contact-edit'
 		}
 	},
 	methods: {
