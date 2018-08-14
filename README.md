@@ -1,6 +1,6 @@
-# learning-app
+# This is test app for learning VUE.JS
 
-> A Vue.js project
+> I made this project just for learning VueJS. This is the simple project that contains phonebook and management of it (add, delete, sort). Also i added auth for this app. The application backend is based on Firebase
 
 ## Build Setup
 
