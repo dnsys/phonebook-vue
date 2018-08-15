@@ -6,7 +6,7 @@
 
 		<v-list-tile-content class="ml-2">
 			<v-list-tile-title>{{ contact.name }}</v-list-tile-title>
-			<v-list-tile-sub-title>{{ contact.phone }} index: {{ index }}</v-list-tile-sub-title>
+			<v-list-tile-sub-title>{{ contact.phone }}</v-list-tile-sub-title>
 		</v-list-tile-content>
 
 		<v-list-tile-action>

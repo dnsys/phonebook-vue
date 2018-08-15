@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-navigation-drawer v-model="drawer" class="hidden-sm-and-up">
+		<v-navigation-drawer v-model="drawer" class="hidden-sm-and-up" fixed app>
 			<v-list dense>
 				<v-list-tile to="/">
 					<v-list-tile-action>
@@ -27,7 +27,7 @@
 			<v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-sm-and-up"></v-toolbar-side-icon>
 			<v-toolbar-title>Phonebook app</v-toolbar-title>
 			<v-spacer></v-spacer>
-			<v-toolbar-items>
+			<v-toolbar-items class="hidden-sm-and-down">
 				<template v-if="isUserLogged">
 					<v-btn flat to="/">Home</v-btn>
 					<v-btn flat to="/contacts">Contacts</v-btn>
@@ -46,7 +46,7 @@
 <script>
   export default {
     data: () => ({
-      drawer: null,
+      drawer: false,
     }),
     props: {
       source: String

@@ -1,5 +1,17 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+let _ = require('lodash');
+// Load the FP build for immutable auto-curried iteratee-first data-last methods.
+let fp = require('lodash/fp');
+
+// Load method categories.
+let array = require('lodash/array');
+let object = require('lodash/fp/object');
+
+// Cherry-pick methods for smaller browserify/rollup/webpack bundles.
+let at = require('lodash/at');
+let curryN = require('lodash/fp/curryN');
+
 import Vue from 'vue'
 import App from './App'
 import router from './router'
