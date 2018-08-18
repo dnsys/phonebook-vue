@@ -44,6 +44,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     data: () => ({
       drawer: false,
@@ -52,9 +54,9 @@
       source: String
     },
 	computed: {
-  		isUserLogged(){
-		  	return this.$store.getters.user
-		},
+	    ...mapGetters({
+		  isUserLogged: 'user'
+		}),
 	  	currentRoute(){
   		  return this.$route.name === 'contact-edit'
 		}
