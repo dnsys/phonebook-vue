@@ -5,7 +5,7 @@ export default {
     user: null
   },
   mutations: {
-    setUser (state, payload) {
+    SET_USER (state, payload) {
       state.user = payload
     }
   },
@@ -23,7 +23,7 @@ export default {
               email: user.email,
               photoUrl: user.photoURL
             }
-            commit('setUser', newUser)
+            commit('SET_USER', newUser)
           }
         )
         .catch(
@@ -47,7 +47,7 @@ export default {
               email: user.email,
               photoUrl: user.photoURL
             }
-            commit('setUser', newUser)
+            commit('SET_USER', newUser)
           }
         )
         .catch(
@@ -74,7 +74,7 @@ export default {
               photoUrl: user.photoURL
             }
             dispatch('createDbUser', newUser)
-            commit('setUser', newUser)
+            commit('SET_USER', newUser)
           }
         )
         .catch(
@@ -98,7 +98,7 @@ export default {
               email: user.email,
               photoUrl: user.photoURL
             }
-            commit('setUser', newUser)
+            commit('SET_USER', newUser)
           }
         )
         .catch(
@@ -122,7 +122,7 @@ export default {
               email: user.email,
               photoUrl: user.photoURL
             }
-            commit('setUser', newUser)
+            commit('SET_USER', newUser)
           }
         )
         .catch(
@@ -146,7 +146,7 @@ export default {
               email: user.email,
               photoUrl: user.photoURL
             }
-            commit('setUser', newUser)
+            commit('SET_USER', newUser)
           }
         )
         .catch(
@@ -164,7 +164,7 @@ export default {
         email: payload.email,
         photoUrl: payload.photoURL
       }
-      commit('setUser', user)
+      commit('SET_USER', user)
     },
     createDbUser({commit, rootState}, payload){
       console.log(payload.id)
@@ -194,7 +194,7 @@ export default {
     },
     logout ({commit}) {
       firebase.auth().signOut()
-      commit('setUser', null)
+      commit('SET_USER', null)
     }
   },
   getters: {
