@@ -20,6 +20,13 @@
 				<h4>No data available</h4>
 			</v-card-text>
 		</v-card>
+		<v-fab-transition>
+			<router-link to="/add">
+				<v-btn color="indigo" dark fab fixed bottom right>
+					<v-icon>add</v-icon>
+				</v-btn>
+			</router-link>
+		</v-fab-transition>
 	</div>
 </template>
 
