@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import { firebaseDB } from '../firebaseConnect'
 import toastr from 'toastr'
 
 export default {
@@ -59,7 +58,7 @@ export default {
   props: ['contact', 'index'],
   methods: {
     deleteContact(itemId){
-      let currentRef = firebaseDB.ref('contacts/' + itemId);
+      let currentRef = this.$store.state.db.ref('contacts/' + itemId);
       currentRef.remove();
       toastr.success("Product deleted successfully");
       this.dialog = false

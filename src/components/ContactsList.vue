@@ -25,11 +25,11 @@
 
 <script>
 import ContactItem from './ContactItem'
-import { firebaseDB } from '../firebaseConnect'
 
 export default {
   data(){
     return{
+      dbConnect: this.$store.getters.db,
       contacts: '',
 	  sortType: null,
 	  selectItems: [
@@ -38,12 +38,19 @@ export default {
 	  searchQuery: ''
 	}
   },
+  firebase(){
+    return {
+      contacts: {
+        source: this.$store.getters.db.ref('contacts')
+      }
+    }
+  },
   components: {
     ContactItem
   },
   computed: {
 	sortedList(){
-      let contacts = this.contacts.filter(contact => {
+	  let contacts = this.contacts.filter(contact => {
         return contact.name.toLowerCase().includes(this.searchQuery.toLowerCase())
 	  })
 	  if(this.sortType != null){
@@ -51,19 +58,10 @@ export default {
 	  }else{
         return contacts
 	  }
-	},
-  },
-  firebase: {
-    contacts: {
-      source: firebaseDB.ref('contacts'),
-      // Optional, allows you to handle any errors.
-      cancelCallback(err) {
-        console.error(err);
-      }
-    }
+	}
   },
   mounted(){
-    //console.log(this.contacts)
+    console.log(this.contacts)
   }
 }
 </script>

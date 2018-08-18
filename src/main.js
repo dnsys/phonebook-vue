@@ -28,8 +28,6 @@ import VueFire from 'vuefire'
 Vue.use(Vuetify)
 Vue.use(VueFire)
 
-import './firebaseConnect'
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
