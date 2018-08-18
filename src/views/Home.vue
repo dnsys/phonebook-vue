@@ -20,7 +20,7 @@
 				<v-card-actions>
 					<v-flex justify-center>
 						<v-btn color="info" to="/auth" v-if="!isUserLogged">Enter</v-btn>
-						<v-btn v-else @click.prevent="setSeeds">Generate</v-btn>
+						<v-btn v-else @click.prevent="setSeeds" :disabled="loading" :loading="loading" >Generate</v-btn>
 					</v-flex>
 				</v-card-actions>
 			</v-card>
@@ -37,11 +37,17 @@
 	  computed: {
 	    isUserLogged(){
           return this.$store.getters.user
-		}
+		},
+        error () {
+          return this.$store.getters.error
+        },
+        loading () {
+          return this.$store.getters.loading
+        }
 	  },
 	  methods: {
 	    setSeeds(){
-	      this.$store.dispatch('contacts/seeds')
+	      this.$store.dispatch('seeds')
 		}
 	  }
 	}
