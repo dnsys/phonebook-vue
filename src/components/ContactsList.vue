@@ -22,9 +22,12 @@
 		</v-card>
 		<v-fab-transition>
 			<router-link to="/add">
-				<v-btn color="indigo" dark fab fixed bottom right>
-					<v-icon>add</v-icon>
-				</v-btn>
+				<v-tooltip left>
+					<v-btn slot="activator" color="indigo" dark fab fixed bottom right>
+						<v-icon>add</v-icon>
+					</v-btn>
+					<span>Add new contact</span>
+				</v-tooltip>
 			</router-link>
 		</v-fab-transition>
 	</div>
