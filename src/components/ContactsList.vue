@@ -48,13 +48,6 @@ export default {
 	  searchQuery: ''
 	}
   },
-  firebase(){
-    return {
-      contacts: {
-        source: this.$store.getters.db.ref('contacts')
-      }
-    }
-  },
   components: {
     ContactItem
   },

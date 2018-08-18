@@ -58,10 +58,85 @@ export default {
           }
         )
     },
-    signUserInGoogle ({commit}) {
+    signUserInGoogle ({commit, dispatch}) {
       commit('setLoading', true)
       commit('clearError')
       firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        .then(
+          data => {
+            let user = data.user
+            console.log(user)
+            commit('setLoading', false)
+            const newUser = {
+              id: user.uid,
+              name: user.displayName,
+              email: user.email,
+              photoUrl: user.photoURL
+            }
+            dispatch('createDbUser', newUser)
+            commit('setUser', newUser)
+          }
+        )
+        .catch(
+          error => {
+            commit('setLoading', false)
+            commit('setError', error)
+            console.log(error)
+          }
+        )
+    },
+    signUserInFacebook ({commit}) {
+      commit('setLoading', true)
+      commit('clearError')
+      firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider())
+        .then(
+          user => {
+            commit('setLoading', false)
+            const newUser = {
+              id: user.uid,
+              name: user.displayName,
+              email: user.email,
+              photoUrl: user.photoURL
+            }
+            commit('setUser', newUser)
+          }
+        )
+        .catch(
+          error => {
+            commit('setLoading', false)
+            commit('setError', error)
+            console.log(error)
+          }
+        )
+    },
+    signUserInGithub ({commit}) {
+      commit('setLoading', true)
+      commit('clearError')
+      firebase.auth().signInWithPopup(new firebase.auth.GithubAuthProvider())
+        .then(
+          user => {
+            commit('setLoading', false)
+            const newUser = {
+              id: user.uid,
+              name: user.displayName,
+              email: user.email,
+              photoUrl: user.photoURL
+            }
+            commit('setUser', newUser)
+          }
+        )
+        .catch(
+          error => {
+            commit('setLoading', false)
+            commit('setError', error)
+            console.log(error)
+          }
+        )
+    },
+    signUserInTwitter ({commit}) {
+      commit('setLoading', true)
+      commit('clearError')
+      firebase.auth().signInWithPopup(new firebase.auth.TwitterAuthProvider())
         .then(
           user => {
             commit('setLoading', false)
@@ -83,11 +158,20 @@ export default {
         )
     },
     autoSignIn ({commit}, payload) {
-      commit('setUser', {
+      let user = {
         id: payload.uid,
         name: payload.displayName,
         email: payload.email,
         photoUrl: payload.photoURL
+      }
+      commit('setUser', user)
+    },
+    createDbUser({commit, rootState}, payload){
+      console.log(payload.id)
+      rootState.db.collection("users").doc(payload.id).set({
+        avatar: payload.photoUrl,
+        name: payload.name,
+        email: payload.email
       })
     },
     resetPasswordWithEmail ({ commit }, payload) {

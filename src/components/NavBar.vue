@@ -65,7 +65,10 @@
       logOut(){
         this.$store.dispatch('logout')
 	  }
-	}
+	},
+	mounted(){
+     // console.log(this.isUserLogged.email)
+    }
   }
 </script>
 
