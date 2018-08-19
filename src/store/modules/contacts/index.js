@@ -41,15 +41,28 @@ export default {
       let contacts = await contastsRef.get()
       commit('SET_CONTACT', contacts)
     },
-    addContact({commit, rootState}, payload){
-      rootState.db.collection('contacts').add({
-        avatar: payload.avatar,
-        name: payload.name,
-        phone: payload.phone,
-        owner: rootState.user.user.id
-      }).then(data => {
-        console.log(data)
-      })
+    addContact({commit, dispatch, rootState}, payload){
+      let file = payload.avatar
+      let fileName = file.name
+      let metadata = {
+        contentType: file.type
+      }
+      let imgUpload = rootState.storage.ref().child(fileName).put(file, metadata)
+      imgUpload
+        .then(snapshot => {
+          return snapshot.ref.getDownloadURL()
+        })
+        .then(url => {
+          rootState.db.collection('contacts').add({
+            avatar: url,
+            name: payload.name,
+            phone: payload.phone,
+            owner: rootState.user.user.id
+          }).then(data => {
+            console.log(data)
+            dispatch('getContacts')
+          })
+        })
     },
     removeContact({commit, dispatch, rootState}, payload){
       rootState.db.collection('contacts').doc(payload).delete().then(()=>{
