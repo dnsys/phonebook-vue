@@ -6,20 +6,21 @@ let chance = new Chance()
 export default {
   namespaced: true,
   state: {
-    all: {},
+    all: [],
   },
   mutations:{
     SET_CONTACT(state, payload){
-      state.all = {
-        ...state.all,
-        [payload.id]: payload.data()
-      }
-      console.log(state.all)
+      state.all = payload.docs.map(contact => {
+        return {
+          id: contact.id,
+          ...contact.data(),
+        }
+      })
     },
-    DELETE_CONTACT(state, payload){
-      Vue.delete(state.all, payload)
-      console.log(state.all)
-    }
+    // DELETE_CONTACT(state, payload){
+    //   Vue.delete(state.all, payload)
+    //   console.log(state.all)
+    // }
   },
   actions:{
     seeds({rootState, commit, dispatch}){
@@ -35,12 +36,10 @@ export default {
         dispatch('setSuccess', data, {root:true})
       })
     },
-    async getContacts({commit, rootState}){
+    async getContacts({commit, dispatch, rootState}){
       let contastsRef = rootState.db.collection('contacts').where('owner', '==', rootState.user.user.id)
       let contacts = await contastsRef.get()
-      contacts.forEach(contact => {
-        commit('SET_CONTACT', contact)
-      })
+      commit('SET_CONTACT', contacts)
     },
     addContact({commit, rootState}, payload){
       rootState.db.collection('contacts').add({
@@ -54,7 +53,7 @@ export default {
     },
     removeContact({commit, dispatch, rootState}, payload){
       rootState.db.collection('contacts').doc(payload).delete().then(()=>{
-        commit('DELETE_CONTACT', payload)
+        dispatch('getContacts')
       })
     }
   },
