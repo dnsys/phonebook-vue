@@ -1,7 +1,8 @@
 <template>
 	<v-list-tile @click="">
 		<v-list-tile-avatar>
-			<img :src="contact.avatar">
+			<img :src="contact.avatar" v-if="contact.avatar">
+			<img src="../assets/default-avatar.jpg" alt="" v-else>
 		</v-list-tile-avatar>
 
 		<v-list-tile-content class="ml-2">

@@ -36,10 +36,20 @@ export default {
       })
     },
     async getContacts({commit, rootState}){
-      let contastsRef = rootState.db.collection('contacts')
+      let contastsRef = rootState.db.collection('contacts').where('owner', '==', rootState.user.user.id)
       let contacts = await contastsRef.get()
       contacts.forEach(contact => {
         commit('SET_CONTACT', contact)
+      })
+    },
+    addContact({commit, rootState}, payload){
+      rootState.db.collection('contacts').add({
+        avatar: payload.avatar,
+        name: payload.name,
+        phone: payload.phone,
+        owner: rootState.user.user.id
+      }).then(data => {
+        console.log(data)
       })
     },
     removeContact({commit, dispatch, rootState}, payload){
