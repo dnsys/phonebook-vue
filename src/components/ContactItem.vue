@@ -15,7 +15,7 @@
 					<v-icon>more_vert</v-icon>
 				</v-btn>
 				<v-list>
-					<v-list-tile :to="{ name: 'contact-edit', params: { id: contact.id } }">
+					<v-list-tile :to="{ name: 'contact-edit', params: { id: id } }">
 						<v-list-tile-title>Edit</v-list-tile-title>
 					</v-list-tile>
 					<v-list-tile @click="dialog = !dialog">
@@ -37,7 +37,7 @@
 						Disagree
 					</v-btn>
 
-					<v-btn color="green darken-1" flat="flat" @click="deleteContact(contact.id)">
+					<v-btn color="green darken-1" flat="flat" @click="deleteContact(id)">
 						Agree
 					</v-btn>
 				</v-card-actions>
@@ -55,7 +55,7 @@ export default {
       dialog: false
 	}
   },
-  props: ['contact', 'index'],
+  props: ['contact', 'id'],
   methods: {
     deleteContact(itemId){
       let currentRef = this.$store.state.db.ref('contacts/' + itemId);

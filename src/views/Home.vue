@@ -1,6 +1,20 @@
 <template>
 	<v-layout row align-center justify-center>
 		<v-flex md6 text-xs-center>
+			<v-layout row v-if="error">
+				<v-flex>
+					<v-alert :value="true" color="error" icon="warning" outline :dismissible="true" transition="scale-transition">
+						This is a error alert.
+					</v-alert>
+				</v-flex>
+			</v-layout>
+			<v-layout v-if="success">
+				<v-flex>
+					<v-alert :value="true" color="success" icon="check_circle" outline :dismissible="true" transition="scale-transition">
+						New item was created.
+					</v-alert>
+				</v-flex>
+			</v-layout>
 			<v-card>
 				<v-card-text>
 					<img src="../assets/logo.png">
@@ -29,6 +43,7 @@
 </template>
 
 <script>
+	import {mapGetters} from 'vuex'
 	export default {
 	  data(){
 	    return{
@@ -38,16 +53,22 @@
 	    isUserLogged(){
           return this.$store.getters.user
 		},
-        error () {
-          return this.$store.getters.error
-        },
-        loading () {
-          return this.$store.getters.loading
-        }
+		...mapGetters({
+		  error: 'error',
+		  //success: 'success',
+		  loading: 'loading'
+        }),
+		success(){
+	      return this.$store.getters.success
+		}
 	  },
 	  methods: {
 	    setSeeds(){
-	      this.$store.dispatch('seeds')
+          this.onDismissed()
+	      this.$store.dispatch('contacts/seeds')
+		},
+		onDismissed(){
+	      this.$store.dispatch('clearAllAlerts')
 		}
 	  }
 	}

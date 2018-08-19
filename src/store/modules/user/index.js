@@ -12,7 +12,7 @@ export default {
   actions: {
     signUserUp ({commit}, payload) {
       commit('setLoading', true)
-      commit('clearError')
+      commit('clearAllAlerts')
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
@@ -36,7 +36,7 @@ export default {
     },
     signUserIn ({commit}, payload) {
       commit('setLoading', true)
-      commit('clearError')
+      commit('clearAllAlerts')
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then(
           user => {
@@ -60,7 +60,7 @@ export default {
     },
     signUserInGoogle ({commit, dispatch}) {
       commit('setLoading', true)
-      commit('clearError')
+      commit('clearAllAlerts')
       firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
         .then(
           data => {
@@ -87,7 +87,7 @@ export default {
     },
     signUserInFacebook ({commit}) {
       commit('setLoading', true)
-      commit('clearError')
+      commit('clearAllAlerts')
       firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider())
         .then(
           user => {
@@ -111,7 +111,7 @@ export default {
     },
     signUserInGithub ({commit}) {
       commit('setLoading', true)
-      commit('clearError')
+      commit('clearAllAlerts')
       firebase.auth().signInWithPopup(new firebase.auth.GithubAuthProvider())
         .then(
           user => {
@@ -135,7 +135,7 @@ export default {
     },
     signUserInTwitter ({commit}) {
       commit('setLoading', true)
-      commit('clearError')
+      commit('clearAllAlerts')
       firebase.auth().signInWithPopup(new firebase.auth.TwitterAuthProvider())
         .then(
           user => {
