@@ -58,10 +58,7 @@ export default {
   props: ['contact', 'id'],
   methods: {
     deleteContact(itemId){
-      let currentRef = this.$store.state.db.ref('contacts/' + itemId);
-      currentRef.remove();
-      toastr.success("Product deleted successfully");
-      this.dialog = false
+		this.$store.dispatch('contacts/removeContact', itemId).then(()=>{ this.dialog = false })
 	}
   }
 }

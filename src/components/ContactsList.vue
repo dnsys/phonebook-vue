@@ -13,15 +13,12 @@
 			</v-flex>
 		</v-layout>
 		<v-card>
-			<!--<v-list two-line v-if="sortedList.length > 0">-->
-				<!--<contact-item v-for="(contact, key) in sortedList" :contact="contact" :key="key" :index="key"></contact-item>-->
-			<!--</v-list>-->
-			<!--<v-card-text v-else>-->
-				<!--<h4>No data available</h4>-->
-			<!--</v-card-text>-->
-			<v-list two-line>
+			<v-list two-line v-if="contactsLength > 0">
 				<contact-item v-for="(contact, id) in contacts" :contact="contact" :key="id" :id="id"></contact-item>
 			</v-list>
+			<v-card-text v-else>
+				<h4>No data available</h4>
+			</v-card-text>
 		</v-card>
 		<v-fab-transition>
 			<router-link to="/add">
@@ -54,19 +51,12 @@ export default {
     ContactItem
   },
   computed: {
-	// sortedList(){
-	//   let contacts = this.contacts.filter(contact => {
-     //    return contact.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-	//   })
-	//   if(this.sortType != null){
-     //    return _.orderBy(contacts, this.sortType, 'asc')
-	//   }else{
-     //    return contacts
-	//   }
-	// }
-	...mapState({
-	  contacts: state => state.contacts.all,
-	})
+	...mapGetters('contacts', {
+	  contacts: 'contacts'
+	}),
+	contactsLength(){
+	  return Object.keys(this.contacts).length
+	}
   },
   mounted(){
     //console.log(this.contacts)

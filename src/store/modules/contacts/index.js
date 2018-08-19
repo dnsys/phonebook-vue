@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import Vue from 'vue'
 let Chance = require('chance')
 let chance = new Chance()
 
@@ -13,6 +14,10 @@ export default {
         ...state.all,
         [payload.id]: payload.data()
       }
+      console.log(state.all)
+    },
+    DELETE_CONTACT(state, payload){
+      Vue.delete(state.all, payload)
       console.log(state.all)
     }
   },
@@ -36,11 +41,16 @@ export default {
       contacts.forEach(contact => {
         commit('SET_CONTACT', contact)
       })
+    },
+    removeContact({commit, dispatch, rootState}, payload){
+      rootState.db.collection('contacts').doc(payload).delete().then(()=>{
+        commit('DELETE_CONTACT', payload)
+      })
     }
   },
   getters: {
     contacts(state){
-      return state.contacts
+      return state.all
     }
   }
 }
