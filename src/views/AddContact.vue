@@ -30,10 +30,11 @@
 											  required></v-text-field>
 								<v-text-field ref="phone"
 											  v-model="phone"
-											  :rules="[() => !!phone || 'This field is required', () => !!phone && phone.length <= 12 || 'Address must be more than 12 characters']"
+											  :rules="[() => !!phone || 'This field is required', () => !!phone && phone.length > 12 || 'Address must be more than 12 characters']"
 											  :error-messages="errorMessages" :mask="phoneMask"
 											  label="Phone"
 											  placeholder="+38(093)000-0000"
+											  :return-masked-value="true"
 											  required></v-text-field>
 							</v-flex>
 						</v-layout>
