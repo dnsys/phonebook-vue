@@ -16,6 +16,9 @@
 					<v-icon>more_vert</v-icon>
 				</v-btn>
 				<v-list>
+					<v-list-tile :to="{ name: 'contact-view', params: { id: id } }">
+						<v-list-tile-title>View</v-list-tile-title>
+					</v-list-tile>
 					<v-list-tile :to="{ name: 'contact-edit', params: { id: id } }">
 						<v-list-tile-title>Edit</v-list-tile-title>
 					</v-list-tile>
