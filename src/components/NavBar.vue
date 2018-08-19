@@ -58,7 +58,7 @@
 		  isUserLogged: 'user'
 		}),
 	  	currentRoute(){
-  		  return this.$route.name === 'contact-edit' || this.$route.name === 'contact-add'
+  		  return this.$route.name === 'contact-edit' || this.$route.name === 'contact-add' || this.$route.name === 'contact-view'
 		}
 	},
 	methods: {

@@ -10,17 +10,15 @@ export default {
   },
   mutations:{
     SET_CONTACT(state, payload){
-      state.all = payload.docs.map(contact => {
-        return {
-          id: contact.id,
-          ...contact.data(),
-        }
-      })
-    },
-    // DELETE_CONTACT(state, payload){
-    //   Vue.delete(state.all, payload)
-    //   console.log(state.all)
-    // }
+      console.log(payload)
+      state.all = payload
+      // state.all = payload.docs.map(contact => {
+      //   return {
+      //     id: contact.id,
+      //     ...contact.data(),
+      //   }
+      // })
+    }
   },
   actions:{
     seeds({rootState, commit, dispatch}){
@@ -39,7 +37,20 @@ export default {
     async getContacts({commit, dispatch, rootState}){
       let contastsRef = rootState.db.collection('contacts').where('owner', '==', rootState.user.user.id)
       let contacts = await contastsRef.get()
-      commit('SET_CONTACT', contacts)
+      let contactsObject = contacts.docs.map(contact => {
+        return {
+          id: contact.id,
+          ...contact.data()
+        }
+      })
+      commit('SET_CONTACT', contactsObject)
+    },
+    fetchContacts({commit, rootState}, payload){
+      let contastsRef = rootState.db.collection('contacts').doc(payload)
+      let contacts =  contastsRef.get()
+      contacts.then(doc => {
+        commit('SET_CONTACT', doc.data())
+      })
     },
     addContact({commit, dispatch, rootState}, payload){
       let file = payload.avatar

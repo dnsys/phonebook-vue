@@ -9,6 +9,7 @@ import Auth from '../views/Auth'
 import Contacts from '../views/Contacts'
 import Edit from '../views/Edit'
 import AddContact from '../views/AddContact'
+import ContactView from '../views/ContactView'
 
 Vue.use(Router)
 
@@ -28,7 +29,13 @@ let routes = [
     path: '/contacts',
     name: 'contacts',
     component: Contacts,
-    meta: { requireAuth: true },
+    meta: { requireAuth: true }
+  },
+  {
+    path: '/contacts/:id',
+    name: 'contact-view',
+    props: true,
+    component: ContactView
   },
   {
     path: '/add',
