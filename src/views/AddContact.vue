@@ -5,9 +5,17 @@
 				<v-card-text>
 					<v-layout>
 						<v-flex d-flex justify-center>
-							<v-avatar size="150">
-								<img src="../assets/default-avatar.jpg" alt="">
+							<v-avatar size="150" @click='pickFile'>
+								<img src="../assets/default-avatar.jpg" alt="" v-if="!imageUrl">
+								<img :src="imageUrl" alt="" v-else>
 							</v-avatar>
+							<input
+									type="file"
+									style="display: none"
+									ref="image"
+									accept="image/*"
+									@change="onFilePicked"
+							>
 						</v-flex>
 					</v-layout>
 					<v-divider class="mt-3 mb-4"></v-divider>
@@ -53,8 +61,12 @@
       return {
         name: null,
         phone: null,
+        imageName: '',
+        imageUrl: '',
+        imageFile: '',
 		phoneMask: '+##(###)###-####',
-        formHasErrors: false
+        formHasErrors: false,
+		errorMessages: ''
       }
     },
     computed: {
@@ -66,6 +78,28 @@
       }
     },
     methods: {
+      pickFile () {
+        this.$refs.image.click ()
+      },
+      onFilePicked (e) {
+        const files = e.target.files
+        if(files[0] !== undefined) {
+          this.imageName = files[0].name
+          if(this.imageName.lastIndexOf('.') <= 0) {
+            return
+          }
+          const fr = new FileReader ()
+          fr.readAsDataURL(files[0])
+          fr.addEventListener('load', () => {
+            this.imageUrl = fr.result
+            this.imageFile = files[0] // this is an image file that can be sent to server...
+          })
+        } else {
+          this.imageName = ''
+          this.imageFile = ''
+          this.imageUrl = ''
+        }
+      },
       resetForm () {
         this.errorMessages = []
         this.formHasErrors = false
