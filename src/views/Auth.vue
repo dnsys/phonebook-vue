@@ -1,6 +1,13 @@
 <template>
 	<v-layout justify-center align-center>
 		<v-flex md5>
+			<v-layout row v-if="error">
+				<v-flex>
+					<v-alert :value="true" color="error" icon="warning" outline :dismissible="true" transition="scale-transition">
+						{{ error.message }}
+					</v-alert>
+				</v-flex>
+			</v-layout>
 			<v-card>
 				<v-card-text>
 					<form @submit.prevent="onSignin">
@@ -36,7 +43,7 @@
                         					<v-icon light>cached</v-icon>
                        					</span>
 									</v-btn>
-									<v-btn flat>Registration</v-btn>
+									<v-btn flat to="/registration">Registration</v-btn>
 								</div>
 								<div class="text-xs-center">
 									<v-btn round color="red" dark :disabled="loading" :loading="loading" @click.prevent="signInGoogle">Login with Google
@@ -79,9 +86,27 @@ export default{
     onSignin () {
       this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
     },
-    signInGoogle(){
+    onSigninGoogle () {
       this.$store.dispatch('signUserInGoogle')
-	}
+    },
+    onSigninFacebook () {
+      this.$store.dispatch('signUserInFacebook')
+    },
+    onSigninGithub () {
+      this.$store.dispatch('signUserInGithub')
+    },
+    onSigninTwitter () {
+      this.$store.dispatch('signUserInTwitter')
+    },
+    onResetPassword () {
+      if (this.email === '') {
+        return this.$store.dispatch('setError', {message: 'Email can not be blnak'})
+      }
+      this.$store.dispatch('resetPasswordWithEmail', {email: this.email})
+    },
+    onDismissed () {
+      this.$store.dispatch('clearError')
+    }
   },
   watch: {
     user (value) {

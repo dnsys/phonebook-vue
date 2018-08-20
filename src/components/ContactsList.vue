@@ -13,12 +13,12 @@
 			</v-flex>
 		</v-layout>
 		<v-card>
-			<v-list two-line>
+			<v-list two-line v-if="sortedList.length">
 				<contact-item v-for="(contact, id) in sortedList" :contact="contact" :key="id" :id="contact.id"></contact-item>
 			</v-list>
-			<!--<v-card-text v-else>-->
-				<!--<h4>No data available</h4>-->
-			<!--</v-card-text>-->
+			<v-card-text v-else>
+				<h4>No data available</h4>
+			</v-card-text>
 		</v-card>
 		<v-fab-transition>
 			<router-link to="/add">

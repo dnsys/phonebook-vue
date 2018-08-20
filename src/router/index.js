@@ -6,6 +6,7 @@ import * as firebase from 'firebase'
 //import pages
 import Home from '../views/Home'
 import Auth from '../views/Auth'
+import Registration from '../views/SignUp'
 import Contacts from '../views/Contacts'
 import Edit from '../views/Edit'
 import AddContact from '../views/AddContact'
@@ -23,6 +24,12 @@ let routes = [
     path: '/auth',
     name: 'auth',
     component: Auth,
+    meta: { guestOnly: true }
+  },
+  {
+    path: '/registration',
+    name: 'registration',
+    component: Registration,
     meta: { guestOnly: true }
   },
   {
