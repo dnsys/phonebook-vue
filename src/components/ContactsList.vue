@@ -69,9 +69,8 @@ export default {
     },
   },
   mounted(){
-    //console.log(this.contacts)
   },
-  created(){
+  beforeCreate(){
     this.$store.dispatch('contacts/getContacts')
   }
 }

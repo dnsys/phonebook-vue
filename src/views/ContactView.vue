@@ -11,7 +11,7 @@
 
 							<v-spacer></v-spacer>
 
-							<v-btn dark icon class="mr-3">
+							<v-btn dark icon class="mr-3" :to="{ name: 'contact-edit', params: {id: id} }">
 								<v-icon>edit</v-icon>
 							</v-btn>
 
